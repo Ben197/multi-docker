@@ -9,14 +9,14 @@ script:
   - docker run jabro888/react-test npm test -- --coverage
 
 after_succes:
-  - docker build -t jabro888/multi-client ./client
-  - docker build -t jabro888/multi-nginx ./nginx
-  - docker build -t jabro888/multi-server ./server
-  - docker build -t jabro888/multi-worker ./worker
+  - docker build -t multi-client ./client
+  - docker build -t multi-nginx ./nginx
+  - docker build -t multi-server ./server
+  - docker build -t multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push jabro888/multi-client
-  - docker push jabro888/multi-nginx
-  - docker push jabro888/multi-server
-  - docker push jabro888/multi-worker
+  - docker push jabro888/ben:multi-client
+  - docker push jabro888/ben:multi-nginx
+  - docker push jabro888/ben:multi-server
+  - docker push jabro888/ben:multi-worker
 
 
