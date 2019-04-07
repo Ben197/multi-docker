@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t bernard/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run bernard/react-test npm test -- --coverage
+
+after_succes:
+  - docker build -t bernard/multi-client ./client
+  - docker build -t bernard/multi-nginx ./nginx
+  - docker build -t bernard/multi-server ./server
+  - docker build -t bernard/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push bernard/multi-client
+  - docker push bernard/multi-nginx
+  - docker push bernard/multi-server
+  - docker push bernard/multi-worker
+
+
