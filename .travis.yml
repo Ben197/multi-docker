@@ -3,20 +3,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t bernard/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t jabro888/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run bernard/react-test npm test -- --coverage
+  - docker run jabro888/react-test npm test -- --coverage
 
 after_succes:
-  - docker build -t bernard/multi-client ./client
-  - docker build -t bernard/multi-nginx ./nginx
-  - docker build -t bernard/multi-server ./server
-  - docker build -t bernard/multi-worker ./worker
+  - docker build -t jabro888/multi-client ./client
+  - docker build -t jabro888/multi-nginx ./nginx
+  - docker build -t jabro888/multi-server ./server
+  - docker build -t jabro888/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push bernard/multi-client
-  - docker push bernard/multi-nginx
-  - docker push bernard/multi-server
-  - docker push bernard/multi-worker
+  - docker push jabro888/multi-client
+  - docker push jabro888/multi-nginx
+  - docker push jabro888/multi-server
+  - docker push jabro888/multi-worker
 
 
